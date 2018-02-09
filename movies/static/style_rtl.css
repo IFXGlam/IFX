@@ -678,6 +678,10 @@ input.addToChart {
     color: #79d2ff !important;
 }
 
+span.yearClass {
+    display: inline-block;
+}
+
 @media screen and (max-width: 844px){
     div#boxContainer {
         /*width: 100%;

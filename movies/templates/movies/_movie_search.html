@@ -11,7 +11,7 @@
                     <a href= "{% url 'movies:movie_detail' object.id %}">{{ object.get_title }}</a>
                 </strong>
                 {% if object.year != none %}
-                    ({{ object.year }})
+                (<span class="yearClass">{{ object.year }}</span>)
                 {% endif %}
                 {% if object.duration != none %}
                     <span>{{ object.duration }} {% trans "min" %}</span>
