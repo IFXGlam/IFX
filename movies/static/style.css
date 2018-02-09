@@ -201,7 +201,7 @@ footer{
 footer div .col-xs-3 {
     width: 25%;
     margin: 36px auto;
-    font-size: 1.8em;
+    font-size: 1em;
 }
 
 footer h4 {
@@ -596,7 +596,7 @@ img.col-3 {
 }
 
 .col-9 > section > p {
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .row.movieResult {
@@ -627,6 +627,20 @@ input[type="image"]:hover {
 input.addToChart {
     top: -13px;
     right: 38px;
+}
+
+.pagination {
+    display: inline-block;
+    position: absolute !important;
+    top: -25px !important;
+    right: 9px !important;
+    margin-right: 20px !important;
+    border-radius: 4px !important;
+    color: #ffffff !important;
+}
+
+.pagination > span > a {
+    color: #79d2ff !important;
 }
 
 @media screen and (max-width: 844px){

@@ -87,6 +87,7 @@ class MoviesSearchListView(MovieListView):
         search_type = self.request.GET.get('idselect')
         q = self.get_filters(query, search_type)
         qs = qs.filter(q)
+
         return qs
 
     def get_filters(self, query, search_type):

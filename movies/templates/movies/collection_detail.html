@@ -5,13 +5,13 @@
     <li>Movies:<ul>
         {% for object in collection.get_items %}
         <li>
-            <a href= {% url "movies:movie_detail" object.movie.id %}>{{ object.movie.title }}</a>
+            <a href= "{% url 'movies:movie_detail' object.movie.id %}">{{ object.movie.title }}</a>
         </li>
         {% endfor %}
     </ul>
     </li>
 </ul>
 
-<a href="{% url "movies:collections_list" %}">Back To My Collections</a>
+<a href="{% url 'movies:collections_list' %}">Back To My Collections</a>
 
 

@@ -1,15 +1,15 @@
 {% extends 'movies/../base.html' %}
 {% load static i18n humanize %}
+{% load static i18n %}
+{% csrf_token %}
 
 {% block content %}
-
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           rel="stylesheet">
-    <link href="{% static "style.css" %}" rel="stylesheet">
 
-    <h1>{% trans "Movies" %}</h1>
-
-    <div class="pagination">
+    <div class="container">
+        <h1 id="h1reasult">{% trans "Search reasults for" %}: {{query}}</h1>
+        <div class="pagination">
         <span>
         {{ page_obj.start_index }}-{{ page_obj.end_index }}
         of {{ paginator.count|intcomma }}
@@ -31,34 +31,34 @@
             {% endif %}
         </span>
     </div>
+        <div class="row justify-content-between">
+            <div class="col-6">
+                <span>{{count}} {% trans "Titles were found" %}</span>
+            </div>
 
-    <div>
-        {% for object in object_list %}
-           {% block movie %}{% include 'movies/_movie_search.html' %}{% endblock %}
-        {% endfor %}
+            <div class="col-6 sortBy">
+                <span>{% trans "Sorted by" %}:</span>
+                  <select class="dropdown dropBtnSearchUp sortDropdown" aria-labelledby="dropdownMenu1">
+                    <option value="1"><a href="#">{% trans "Title A-Z" %}</a></option>
+                      <span role="separator" class="divider"></span>
+                    <option value="2"><a href="#">{% trans "Oldest" %}</a></option>
+                      <span role="separator" class="divider"></span>
+                    <option value="3"><a href="#">{% trans "Newest" %}</a></option>
+                      <span role="separator" class="divider"></span>
+                    <option value="4"><a href="#">{% trans "Director A-Z" %}</a></option>
+                  </select>
+            </div>
+
+        </div>
+
+        <hr>
+        <div>
+            {% for object in object_list %}
+               {% block movie %}{% include 'movies/_movie_search.html' %}{% endblock %}
+            {% endfor %}
+        </div>
     </div>
-
-
-    <table border="1" width="100%">
-        <tr>
-            <th>#</th>
-            <th>bid</th>
-            <th>Title</th>
-            <th>Year</th>
-            <th>Duration</th>
-        </tr>
-        {% for object in object_list %}
-            <tr>
-                <td>#{{ object.id }}</td>
-                <td>{{ object.bid }}</td>
-                <td>
-                    <a href="{% url 'movies:movie_detail' object.id %}">{{ object.get_title }}</a>
-                </td>
-                <td>{{ object.year }}</td>
-                <td>{{ object.duration }}</td>
-            </tr>
-        {% endfor %}
-
-    </table>
-
 {% endblock %}
+
+
+

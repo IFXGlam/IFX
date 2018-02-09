@@ -202,7 +202,7 @@ footer div .col-xs-3 {
     margin: 36px auto;
     padding-right: 31px;
     text-align: right;
-    font-size: 1.8em;
+    font-size: 1em;
 }
 
 footer h4 {
@@ -621,7 +621,7 @@ img.col-3 {
 }
 
 .col-9 > section > p {
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .col-9 > section {
@@ -665,6 +665,18 @@ input.addToChart {
     left: 38px;
 }
 
+.pagination {
+    position: absolute;
+    top: -26px !important;
+    z-index: 3 !important;
+    left: 20px !important;
+    color: white !important;
+    direction: ltr !important;
+}
+
+.pagination > span > a {
+    color: #79d2ff !important;
+}
 
 @media screen and (max-width: 844px){
     div#boxContainer {
