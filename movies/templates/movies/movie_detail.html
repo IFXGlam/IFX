@@ -2,37 +2,74 @@
 {% load static i18n %}
 
 {% block content %}
-    <h1>Movie #{{ movie.id }}</h1>
-
+    {% if LANGUAGE_CODE == 'he' %}
+        {% if movie.title_he != none %}
+            <h1 class="h1reasult"><strong>{{movie.title_he}}</strong> ({{ movie.year }}) #{{ movie.id }}</h1>
+        {% elif movie.title_en != none %}
+            <h1 class="h1reasult"><strong>{{movie.title_en}}</strong> ({{ movie.year }}) #{{ movie.id }}</h1>
+        {% else %}
+            <h1 class="h1reasult"><strong>סרט</strong> ({{ movie.year }}) #{{ movie.id }}</h1>
+        {% endif %}
+    {% else %}
+            {% if movie.title_en != none %}
+            <h1 class="h1reasult"><strong>{{movie.title_en}}</strong> ({{ movie.year }}) #{{ movie.id }}</h1>
+        {% elif movie.title_he != none %}
+            <h1 class="h1reasult"><strong>{{movie.title_he}}</strong> ({{ movie.year }}) #{{ movie.id }}</h1>
+        {% else %}
+            <h1 class="h1reasult"><strong>Movie</strong> ({{ movie.year }}) #{{ movie.id }}</h1>
+        {% endif %}
+    {% endif %}
+    <form action="">
+                <input class="addToChart" type="image" src="{% static 'images/Shopping-bag-black.svg' %}" alt="Submit">
+     </form>
+    <div class="movieD">
     <ul>
-        <li><b>Title: {{ movie.get_title }}</b>
-            <ul>
-                <li><b>Title(he):</b>{{movie.title_he}}</li>
-                <li><b>Title(en):</b>{{movie.title_en}}</li>
-            </ul>
-        </li>
-        <li>Year: {{ movie.year }}</li>
-        <li>Description:
-            <ul>
-                <b>Summary(he):</b><p>{{movie.summary_he}}</p>
-                <b>Summary(en):</b><p>{{movie.summary_en}}</p>
-            </ul>
-        </li>
-        <li>bid: {{movie.bid}} </li>
-        <li>Additional data:<ul>
-            {% for key,values in movie.get_extra_data.items %}
-            <li>
-                <b>{{key}}:</b>
-                {% for value in values %}
-                    <q>{{ value }}</q>
-                {% endfor %}
-            </li>
-            {% endfor %}
-        </ul>
+        <li>{% trans "Runtime" %}: <span>{} {% trans "min" %}</span></li>
+        <li>{% trans "Director" %}: <span>{}</span></li>
+        <li>{% trans "Producer" %}: <span>{}</span></li>
+        <li>{% trans "Screenwriter" %}: <span>{}</span></li>
+        <li>{% trans "Photographer" %}: <span>{}</span></li>
+        <li>{% trans "Cast" %}: <span>{}</span></li>
+        <li>{% trans "Genre/s" %}: <span>{}</span></li>
+        <li>{% trans "Color" %}: <span>{}</span></li>
+    </ul>
+    <hr>
+    <ul>
+        <li>
+            {% if LANGUAGE_CODE == 'he' %}
+                {% if movie.summary_he != none %}
+                    <b>תקציר: </b><p>{{movie.summary_he}}</p>
+                {% elif movie.title_en != none %}
+                    <b>תקציר (אנג'):  </b><p>{{movie.summary_en}}</p>
+                {% endif %}
+            {% else %}
+                    {% if movie.summary_en != none %}
+                        <b>Summary: </b><p>{{movie.summary_en}}</p>
+                    {% elif movie.title_he != none %}
+                        <b>Summary(he): </b><p>{{movie.summary_he}}</p>
+                    {% endif %}
+            {% endif %}
         </li>
     </ul>
 
+    <hr>
+    <span>{% trans "Number" %} {% trans "item" %}: {{movie.bid}}</span>
+    <hr>
+
+    <span>Additional data:</span>
+    <ul>
+    {% for key,values in movie.get_extra_data.items %}
+    <li>
+        <b>{{key}}:</b>
+        {% for value in values %}
+            <q>{{ value }}</q>
+        {% endfor %}
+    </li>
+    {% endfor %}
+    </ul>
+
     <a href='{% url "movies:movies_list" %}'>Back To My Movies</a>
+    </div>
 {% endblock %}
 
 

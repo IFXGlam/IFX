@@ -520,7 +520,7 @@ div#smaller_jum {
     height: 130px;
 }
 
-h1#h1reasult {
+h1.h1reasult {
     background-color: #4a4a4a;
     color: #fcfcfc;
     font-weight: 100;
@@ -680,6 +680,14 @@ input.addToChart {
 
 span.yearClass {
     display: inline-block;
+}
+
+.movieD ul li {
+    list-style-type: none;
+    direction: rtl;
+    text-align: right;
+    margin-right: -38px;
+    font-size: 1.4em;
 }
 
 @media screen and (max-width: 844px){
