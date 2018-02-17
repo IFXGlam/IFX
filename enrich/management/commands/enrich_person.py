@@ -12,6 +12,10 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('n', type=int)
+        parser.add_argument(
+            'type',
+            type=str,
+        )
 
         parser.add_argument(
             '--readonly',
@@ -39,7 +43,9 @@ class Command(BaseCommand):
                 o = Identity.objects.create(entity=person, source_type=Identity.wikipedia)
                 print('Identity created with person, id={}'.format(o.object_id))
 
-            o.get_wikipedia_info()
+                o.get_wikipedia_info()
+
+                o.get_viaf_info()
 
             if not options['readonly']:
                 o.save()
