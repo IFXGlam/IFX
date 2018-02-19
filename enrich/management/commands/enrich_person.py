@@ -42,6 +42,8 @@ class Command(BaseCommand):
 
             o.get_wikipedia_info()
 
+            o.get_viaf_info()
+
             if not options['readonly']:
                 o.save()
             progress.update(1)

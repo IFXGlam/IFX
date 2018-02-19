@@ -3,19 +3,20 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-
-# Identity
-# - entity = GenericFK (-> Person ->Movie)
-# - source (choices = WIKIDATA, WIKIPEDIA, VIAF,)
-# - vendor_id ("X1234" "https://hw.wikipedia.org/HAIM=TOPUL"
-# - status: NEW, ACCEPTED, REJECTED, UNDER_DISCUSSION
-# - notes:
-# - score???: automatic probabilty (0.4 for name + 0.5 for matching role in movie)
+from .api import ViafAPI
 from people.models import Person
 
 
 class Identity(models.Model):
+    """
+    # Identity
+    # - entity = GenericFK (-> Person ->Movie)
+    # - source (choices = WIKIDATA, WIKIPEDIA, VIAF,)
+    # - vendor_id ("X1234" "https://hw.wikipedia.org/HAIM=TOPUL"
+    # - status: NEW, ACCEPTED, REJECTED, UNDER_DISCUSSION
+    # - notes:
+    # - score???: automatic probabilty (0.4 for name + 0.5 for matching role in movie)
+    """
     wikidata = 'WIKIDATA'
     wikipedia = 'WIKIPEDIA'
     viaf = 'VIAF'
@@ -86,6 +87,31 @@ class Identity(models.Model):
                 url = wikipedia.page(name).url
                 print(url)
             except wikipedia.exceptions.DisambiguationError as e:
+                print(e.options)
+        except:
+            print('Not found, Id={}'.format(self.object_id))
+
+    def get_viaf_info(self):
+        # https://www.viaf.org/viaf
+        try:
+            # TODO: movie support
+            p = Person.objects.get(pk=self.object_id)
+            name = p.name_en
+            # # remove me
+            # name = 'Edward Dmytryk'
+            try:
+                viaf = ViafAPI()
+                items = viaf.find_person(name)
+                # print(items)
+                counter = 1
+                for item in items:
+                    print('item #{}'.format(counter))
+                    print('uri={}'.format(item.uri))
+                    print('viaf_id={}'.format(item.viaf_id))
+                    print('nametype={}'.format(item.nametype))
+                    print('label={}'.format(item.label))
+                    counter += 1
+            except Exception as e:
                 print(e.options)
         except:
             print('Not found, Id={}'.format(self.object_id))
