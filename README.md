@@ -21,8 +21,10 @@ Israeli film archive
 
         CELERY_TASK_ALWAYS_EAGER = True
 
+* To install all the requirements and get into the virtual environment:
 
-* `pipenv install`
+       pipenv install
+       pipenv shell
 
 * Assuming your user can create DBs:
 
